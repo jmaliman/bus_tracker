@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="column" style="background-color:#aaa;">
+      <style>
+          .buses {
+                margin-left: 25px;
+              }
+          .desc {
+                color: white;
+              }
+
+      </style>
+
+
+{% if buses %}
+{% csrf_token %}
+    {% for bus in buses %}
+<hr>
+        <h3 class="buses">Bus id number: {{bus.idno}}</h3>
+        <h3 class="buses" >Current latitude: {{bus.latitude}}</h3>
+        <h3 class="buses" >Current longitude: {{bus.longitude}}</h3>
+        <h3 class="buses" >Distance from you: {{bus.distance}} kilometers</h3>
+<hr>
+    {% endfor %}
+{% else %}
+    <p> No buses available. </p>
+{% endif %}
+        </div>
+  <div class="column" style="background-color:#ffff">
+
+    <h3><center>Buses within 1km</center></h3>
+      <body style="background-color:">
+      {% if buses %}
+
+        {% for bus in buses %}
+
+            {% if bus.distance <= 1 %}
+      <h4>Bus id number: {{bus.idno}}</h4>
+      <img src="https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/Routes?wp.0={{bus.latitude}},{{bus.longitude}};10;BUS&wp.1=41.980262,-87.6684522;26;YOU&zoomLevel=50&key=AmNgqJNq6l9j6cdJnGg1_JlKUQyZUYX7WMYTjE9MufgRbMri_3ecun7O66NmuaKk"></img>
+
+            {% endif %}
+        {% endfor %}
+
+
+      {% endif %}
+      </body>
+  </div>
+</div>
+
+
+

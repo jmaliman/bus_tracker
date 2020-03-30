@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<font face="Modern,Arial">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
+<h3 style = "color:#122A66;"><center> <font size = "6">Northbound buses</font></center></h3>
+
+<body>
+
+<hr>
+
+<script src="http://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+<p id="buslist" style="margin:50px;">Getting buses. Please wait...</p>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("buslist").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "http://127.0.0.1:8000/buses/bus_generator", true);
+  xhttp.send();
+}
+
+loadDoc()
+setInterval(loadDoc,15000)
+</script>
+</font>
+
+</body>
+
+</html>
